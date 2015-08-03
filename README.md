@@ -1,4 +1,4 @@
-# Project Name #
+# Socket Landerz #
 
 <!-- 
 > This material was originally posted [here](http://www.quora.com/What-is-Amazons-approach-to-product-development-and-product-management). It is reproduced here for posterity's sake.
@@ -16,11 +16,13 @@ Oh, and I also like to write press-releases in what I call "Oprah-speak" for mai
 Once the project moves into development, the press release can be used as a touchstone; a guiding light. The product team can ask themselves, "Are we building what is in the press release?" If they find they're spending time building things that aren't in the press release (overbuilding), they need to ask themselves why. This keeps product development focused on achieving the customer benefits and not building extraneous stuff that takes longer to build, takes resources to maintain, and doesn't provide real customer benefit (at least not enough to warrant inclusion in the press release).
  -->
  
-## Heading ##
-  > Name the product in a way the reader (i.e. your target customers) will understand.
+<!--## Heading ##
+  > Name the product in a way the reader (i.e. your target customers) will understand.-->
+## Multiplayer Lunar Landers over WebSockets ##
 
-## Sub-Heading ##
-  > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+<!--## Sub-Heading ##
+  > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.-->
+## For those into nostalgia and current/next generation web technologies ##
 
 ## Summary ##
   > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
