@@ -25,28 +25,28 @@ Once the project moves into development, the press release can be used as a touc
 ## For those into nostalgia and current/next generation web technologies ##
 
 ## Summary ##
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+<!--  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.-->
   Competitive online Luner Landers.  
 
 ## Problem ##
-  > Describe the problem your product solves.
+<!--  > Describe the problem your product solves.-->
   Dunno, not enough multiplayer lunar landers(?)
 
 ## Solution ##
-  > Describe how your product elegantly solves the problem.
+<!--  > Describe how your product elegantly solves the problem.-->
   Dunno, provides an online multiplayer lunar lander(?)
 
 ## Quote from You ##
-  > A quote from a spokesperson in your company.
+<!--  > A quote from a spokesperson in your company.-->
   'who knows if this is worth the effort, or even acheivable for that matter' --Marc Christophe
 
 ## How to Get Started ##
-  > Describe how easy it is to get started.
+<!--  > Describe how easy it is to get started.-->
   go to this web addres: ----
 
 ## Customer Quote ##
-  > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+<!--  > Provide a quote from a hypothetical customer that describes how they experienced the benefit.-->
   'this is the most amazing experience I've had on the internet thusfar!!' -- some customer
 
 ## Closing and Call to Action ##
-  > Wrap it up and give pointers where the reader should go next.
+<!--  > Wrap it up and give pointers where the reader should go next.-->
