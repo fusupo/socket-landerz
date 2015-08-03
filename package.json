@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/fusupo/socket-landerz/issues"
   },
-  "homepage": "https://github.com/fusupo/socket-landerz#readme"
+  "homepage": "https://github.com/fusupo/socket-landerz#readme",
+  "dependencies": {
+    "express": "^4.13.3"
+  }
 }
