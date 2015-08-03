@@ -1,13 +1,26 @@
 var express = require('express');
-var app = express();
+var app = require('express')();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 
 var port = process.env.PORT || 3000;
 
 app.use(express.static(__dirname + '/../client'));
 
-var server = app.listen(port, function() {
-  var host = server.address().address;
-  var port = server.address().port;
+io.on('connection', function(socket){
+  
+  console.log('a user connected');
+  
+  socket.on('chat message', function(msg){
+    console.log('message: ' + msg);
+  });
 
-  console.log('Example app listening at http://%s:%s', host, port);
+  socket.on('disconnect', function(){
+    console.log('user disconnected');
+  });
+  
+});
+
+http.listen(port, function(){
+  console.log('listening on *:' + port);
 });
