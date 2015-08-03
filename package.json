@@ -1,0 +1,24 @@
+{
+  "name": "socket-landerz",
+  "version": "1.0.0",
+  "description": "multiplayer lunar landers over websockets",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fusupo/socket-landerz.git"
+  },
+  "keywords": [
+    "web-socket",
+    "lunar",
+    "lander"
+  ],
+  "author": "Marc Christophe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fusupo/socket-landerz/issues"
+  },
+  "homepage": "https://github.com/fusupo/socket-landerz#readme"
+}
