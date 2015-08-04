@@ -11,17 +11,17 @@ app.use(express.static(__dirname + '/../client'));
 io.on('connection', onSocketConnection);
 
 http.listen(port, function() {
-  console.log('listening on *:' + port);
+  util.log('listening on *:' + port);
 });
 
-//console.log(game);
+//util.log(game);
 
 function onSocketConnection(client) {
 
   util.log("New player has connected: " + client.id);
   client.on("disconnect", onClientDisconnect);
   client.on("new player", onNewPlayer);
-  client.on("move player", game.onMovePlayer);
+  client.on("move player", onMovePlayer);
 
 }
 
@@ -64,5 +64,17 @@ function onNewPlayer(data) {
 }
 
 function onMovePlayer(data) {
-
+  util.log(this.id, data);
+  data.id = this.id;
+  this.broadcast.emit("move player", data);
 }
+
+
+
+
+
+
+
+
+
+
