@@ -15,8 +15,11 @@ var Player = function(type, startX, startY, startR) {
   var y = startY;
   var r = startR;
   var id;
-  var moveAmount = 2;
+  var moveAmount = 4;
   var type = type;
+
+  var v = 0;
+  var acc = 1 / 10;
 
   var $el = makeSVG('rect', {
     x: -5,
@@ -63,14 +66,21 @@ var Player = function(type, startX, startY, startR) {
     var h;
     // Up key takes priority over down
     if (keys.up) {
-      //y -= moveAmount;
-      h = moveAmount;
+      v = Math.min(v + acc, moveAmount);
     } else if (keys.down) {
-      //y += moveAmount;
-      h = -moveAmount;
-    }
+      v = Math.max(v - acc, -moveAmount);
+    } else {
 
-    if (h !== undefined) {
+      Math.abs(v) === v ? v -= acc : v += acc;
+      
+      if (v < 2*acc && v > -2*acc) {
+        v = 0;
+      }
+    }
+   // console.log(v);
+    h = v;
+
+    if (h !== undefined && h !== 0) {
       var rr = (Math.PI / 180) * r;
       var a = h * Math.cos(rr);
       var b = h * Math.sin(rr);
