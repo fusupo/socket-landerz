@@ -2,6 +2,7 @@
     var socket = io();
     var player;
     var remotePlayers = [];
+    var bullets = [];
 
     var myID;
     var keys = {};
@@ -13,6 +14,10 @@
     socket.on("new player", onNewPlayer);
     socket.on("remove player", onRemovePlayer);
     socket.on("move player", onMovePlayer);
+
+    socket.on("shots fired", onShotsFired);
+    socket.on("update shots", onUpdateShots);
+    socket.on("remove shot", onRemoveShot);
 
     /////////////////////////
 
@@ -155,8 +160,6 @@
       e.preventDefault();
     });
 
-    console.log(this);
-
     var rot = 0;
 
     function step() {
@@ -174,11 +177,11 @@
           rot++;
         }
       }
-      //window.requestAnimationFrame(step);
+      window.requestAnimationFrame(step);
     }
 
-    //window.requestAnimationFrame(step.bind(this));
-    setInterval(step.bind(this), 18);
+    window.requestAnimationFrame(step.bind(this));
+    //setInterval(step.bind(this), 16);
 
 
     var isShooting = false;
@@ -192,7 +195,7 @@
       if (isShooting) {
 
         console.log(player);
-        
+
         socket.emit('shots fired', {
           x: player.getX(),
           y: player.getY(),
@@ -207,5 +210,23 @@
     function stopShooting() {
       isShooting = false;
     }
+
+    //////////////////////////////////////////////////
+
+
+    function onShotsFired(data) {
+      console.log("shots fired,", data);
+
+      var newBullet = new Bullet(data.x, data.y, data.r);
+      newBullet.id = data.id;
+      bullets.push(newBullet);
+
+      document.getElementById('svgstage').appendChild(newBullet.$el);
+      newBullet.$el.setAttribute('transform', 'translate(' + newBullet.getX() + ' ' + newBullet.getY() + ')');
+    }
+
+    function onUpdateShots() {}
+
+    function onRemoveShot() {}
 
   });

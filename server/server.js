@@ -22,7 +22,7 @@ function onSocketConnection(client) {
   client.on("disconnect", onClientDisconnect);
   client.on("new player", onNewPlayer);
   client.on("move player", onMovePlayer);
-  
+
   client.on("shots fired", onShotsFired);
 
 }
@@ -75,22 +75,22 @@ function onMovePlayer(data) {
 
 ////////////////////////
 
-function onShotsFired(data){
+function onShotsFired(data) {
   var newBullet = game.onShotsFired.bind(this)(data);
 
   this.broadcast.emit("shots fired", {
-      id: newBullet.id,
-      x: newBullet.getX(),
-      y: newBullet.getY(),
-      r: newBullet.getR()
+    id: newBullet.id,
+    x: newBullet.getX(),
+    y: newBullet.getY(),
+    r: newBullet.getR()
   });
+  this.emit("shots fired", {
+    id: newBullet.id,
+    x: newBullet.getX(),
+    y: newBullet.getY(),
+    r: newBullet.getR()
+  });
+
+  game.addBullet(newBullet);
+  
 }
-
-
-
-
-
-
-
-
-

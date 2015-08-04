@@ -1,7 +1,8 @@
 var Player = require("./player").Player;
-var Bullets = require("./bullet").Bullet;
+var Bullet = require("./bullet").Bullet;
 var R = require('ramda');
 var util = require('util');
+var uuid = require('uuid');
 
 module.exports = function() {
   var players = [];
@@ -44,13 +45,21 @@ module.exports = function() {
 
   /////////////////////////
 
-  obj.onShotsFired = function(){
+  obj.onShotsFired = function(data){
+
     var newBullet = new Bullet(data.x, data.y, data.r);
+    newBullet.id = uuid.v1();
     newBullet.src = this.id;
 
     return newBullet;
+    
   };
 
+  obj.addBullet = function(bullet){
+    bullets.push(bullet);
+  };
+
+  //setInterval(function(){console.log('interval')}, 1000);
   
   return obj;
 };
