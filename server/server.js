@@ -29,7 +29,7 @@ function onClientDisconnect() {
 
   util.log("Player has disconnected: " + this.id);
 
-  this.broadcast.emit("client disconnect", {
+  this.broadcast.emit("remove player", {
     id: this.id
   });
 

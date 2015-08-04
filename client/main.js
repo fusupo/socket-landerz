@@ -1,65 +1,61 @@
-var socket = io();
-var remotePlayers = [];
-var myID;
+$(document).ready(function() {
+  var socket = io();
+  var remotePlayers = [];
+  var player;
+  var myID;
 
-// function toSubmit() {
-//   console.log($('#m').val());
-//   socket.emit('chat message', $('#m').val());
-//   $('#m').val('');
-//   return false;
-// }
+  /////////////////////////
 
-////////////////
+  socket.on("connect", onSocketConnected);
+  socket.on("remove player", onRemovePlayer);
+  socket.on("disconnect", onSocketDisconnect);
+  socket.on("new player", onNewPlayer);
+  socket.on("move player", onMovePlayer);
+  socket.on("remove player", onRemovePlayer);
 
-// socket.on('chat message', function(msg) {
-//   $('#messages').append($('<li>').text(msg));
-// });
+  /////////////////////////
 
-// socket.on('id', function(ID) {
-//   console.log(ID);
-// });
+  function onSocketConnected() {
 
-////////////////
+    player = new Player('local', 10, 23);
 
-socket.on("connect", onSocketConnected);
-socket.on("client disconnect", onClientDisconnect);
-socket.on("disconnect", onSocketDisconnect);
-socket.on("new player", onNewPlayer);
-socket.on("move player", onMovePlayer);
-socket.on("remove player", onRemovePlayer);
+    $('#stage').append(player.$el);
+    player.$el.css('left', 10);
+    player.$el.css('top', 23);
 
-function onSocketConnected() {
-  socket.emit("new player", {
-    x: 10, //localPlayer.getX(),
-    y: 23 //localPlayer.getY()
-  });
-  console.log("Connected to socket server");
-}
+    socket.emit("new player", {
+      x: 10, //localPlayer.getX(),
+      y: 23 //localPlayer.getY()
+    });
+    console.log("Connected to socket server");
+  }
 
-function onSocketDisconnect() {
-  console.log("Disconnected from socket server");
-}
+  function onSocketDisconnect() {
+    console.log("Disconnected from socket server");
+  }
 
 
-// other client has disconnected
-function onClientDisconnect(data){
-  console.log("Other player has disconnected: " + data.id);
-}
+  // other client has disconnected
+  function onRemovePlater(data) {
+    console.log("Player Removed: " + data.id);
+  }
 
 
-function onNewPlayer(data) {
-  console.log("New player connected: " + data.id);
-  var newPlayer = new Player(data.x, data.y);
-  newPlayer.id = data.id;
-  remotePlayers.push(newPlayer);
-}
+  function onNewPlayer(data) {
+    console.log("New player connected: " + data.id);
+    var newPlayer = new Player(data.x, data.y);
+    newPlayer.id = data.id;
+    remotePlayers.push(newPlayer);
+  }
 
-function onMovePlayer(data) {
+  function onMovePlayer(data) {
 
-}
+  }
 
-function onRemovePlayer(data) {
+  function onRemovePlayer(data) {
 
-}
+  }
 
-//////////////
+  /////////////////////////
+
+});

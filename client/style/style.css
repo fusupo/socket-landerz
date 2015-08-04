@@ -1,0 +1,32 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font: 13px Helvetica, Arial;
+}
+
+#stage {
+  width: 500px;
+  height: 500px;
+  background-color: #000;
+  position: relative;
+}
+
+.player {
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+.player.local {
+  background-color: #fff;
+}
+
+.player.remote {
+  background-color: #f00;
+}

@@ -1,12 +1,17 @@
 /**************************************************
  ** GAME PLAYER CLASS
  **************************************************/
-var Player = function(startX, startY) {
-  var x = startX,
-    y = startY,
-    id,
-    moveAmount = 2;
+var Player = function(type, startX, startY) {
 
+  var x = startX;
+  var y = startY;
+  var id;
+  var moveAmount = 2;
+  var type = type;
+  var $el = $('<div></div>');
+  $el.addClass('player');
+  $el.addClass(type);
+  
   // Getters and setters
   var getX = function() {
     return x;
@@ -48,9 +53,9 @@ var Player = function(startX, startY) {
   };
 
   // Draw player
-  var draw = function(ctx) {
-    ctx.fillRect(x - 5, y - 5, 10, 10);
-  };
+  // var draw = function(ctx) {
+  //   ctx.fillRect(x - 5, y - 5, 10, 10);
+  //};
 
   // Define which variables and methods can be accessed
   return {
@@ -59,7 +64,8 @@ var Player = function(startX, startY) {
     setX: setX,
     setY: setY,
     update: update,
-    draw: draw
+    $el: $el
+    //draw: draw
   };
   
 };
