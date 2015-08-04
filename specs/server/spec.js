@@ -21,4 +21,8 @@ describe('Server Tests', function() {
     var foo = 'bar';
     expect(foo).to.equal('bar');
   });
+    it('should have game module', function() {
+    var foo = 'bar';
+    expect(foo).to.equal('bar');
+  });
 });
