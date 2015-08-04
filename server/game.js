@@ -1,10 +1,11 @@
 var Player = require("./player").Player;
+var Bullets = require("./bullet").Bullet;
 var R = require('ramda');
 var util = require('util');
 
 module.exports = function() {
   var players = [];
-
+  var bullets = [];
   var obj = {};
 
   obj.getGameState = function() {
@@ -41,5 +42,15 @@ module.exports = function() {
     return players;
   };
 
+  /////////////////////////
+
+  obj.onShotsFired = function(){
+    var newBullet = new Bullet(data.x, data.y, data.r);
+    newBullet.src = this.id;
+
+    return newBullet;
+  };
+
+  
   return obj;
 };

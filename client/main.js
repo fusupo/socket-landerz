@@ -113,6 +113,9 @@
           break;
         case 88: // x
           keys['x'] = key;
+          if (!isShooting) {
+            startShooting();
+          };
           break;
         default:
           return; // exit this handler for other keys
@@ -144,6 +147,7 @@
           break;
         case 88: // x
           delete['x'];
+          stopShooting();
           break;
         default:
           return; // exit this handler for other keys
@@ -175,5 +179,33 @@
 
     //window.requestAnimationFrame(step.bind(this));
     setInterval(step.bind(this), 18);
+
+
+    var isShooting = false;
+
+    function startShooting() {
+      isShooting = true;
+      shoot();
+    }
+
+    function shoot() {
+      if (isShooting) {
+
+        console.log(player);
+        
+        socket.emit('shots fired', {
+          x: player.getX(),
+          y: player.getY(),
+          r: player.getR()
+        });
+
+        console.log('shoot');
+        setTimeout(shoot, 1000);
+      }
+    }
+
+    function stopShooting() {
+      isShooting = false;
+    }
 
   });
