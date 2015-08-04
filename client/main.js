@@ -27,8 +27,10 @@
     /////////////////////////
     function onSocketConnected() {
 
-      player = new Player('local', Math.floor(Math.random() * 490), Math.floor(Math.random() * 490));
-
+      player = new Player('local',
+                          Math.floor(Math.random() * 490),
+                          Math.floor(Math.random() * 490),
+                          Math.floor(Math.random() * 360));
       
       document.getElementById('svgstage').appendChild(player.$el);
       player.$el.setAttribute('transform', 'translate('+player.getX()+' '+player.getY()+')');
@@ -155,7 +157,7 @@
       if (player) {
         if (player.update(keys)) {
 
-          player.$el.setAttribute('transform', 'translate (' + player.getX() + ', ' + player.getY() + ') rotate(' + rot + ')');
+          player.$el.setAttribute('transform', 'translate (' + player.getX() + ', ' + player.getY() + ') rotate(' + player.getR() + ')');
 
           socket.emit('move player', {
             x: player.getX(),

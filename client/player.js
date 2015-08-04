@@ -37,6 +37,10 @@ var Player = function(type, startX, startY, startR) {
     return y;
   };
 
+  var getR = function() {
+    return r;
+  };
+
   var setX = function(newX) {
     x = newX;
   };
@@ -45,27 +49,32 @@ var Player = function(type, startX, startY, startR) {
     y = newY;
   };
 
+  var setR = function(newR) {
+    r = newR;
+  };
+
   // Update player position
   var update = function(keys) {
     // Previous position
-    var prevX = x,
-      prevY = y;
-
+    var prevX = x;
+    var prevY = y;
+    var prevR = r;
+    
     // Up key takes priority over down
-    if (keys.up) {
-      y -= moveAmount;
-    } else if (keys.down) {
-      y += moveAmount;
-    }
+    // if (keys.up) {
+    //   y -= moveAmount;
+    // } else if (keys.down) {
+    //   y += moveAmount;
+    //}
 
     // Left key takes priority over right
     if (keys.left) {
-      x -= moveAmount;
+      r -= moveAmount;
     } else if (keys.right) {
-      x += moveAmount;
+      r += moveAmount;
     }
 
-    return (prevX != x || prevY != y) ? true : false;
+    return (prevX != x || prevY != y || prevR != r) ? true : false;
   };
 
   // Draw player
@@ -77,8 +86,10 @@ var Player = function(type, startX, startY, startR) {
   return {
     getX: getX,
     getY: getY,
+    getR: getR,
     setX: setX,
     setY: setY,
+    setR: setR,
     update: update,
     $el: $el
       //draw: draw
