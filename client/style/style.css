@@ -9,8 +9,8 @@ body {
 }
 
 #stage {
-  width: 500px;
-  height: 500px;
+  width: 100px;
+  height: 100px;
   background-color: #000;
   position: relative;
 }
@@ -29,4 +29,14 @@ body {
 
 .player.remote {
   background-color: #f00;
+}
+
+
+/* ------------------------- */
+
+#svgstage {
+  width: 500px;
+  height: 500px;
+  background-color: #123;
+  position: relative;
 }

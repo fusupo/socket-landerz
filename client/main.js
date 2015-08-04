@@ -16,14 +16,23 @@
 
     /////////////////////////
 
+
+    function makeSVG(tag, attrs) {
+      var el = document.createElementNS('http://www.w3.org/2000/svg', tag);
+      for (var k in attrs)
+        el.setAttribute(k, attrs[k]);
+      return el;
+    }
+
+    /////////////////////////
     function onSocketConnected() {
 
       player = new Player('local', Math.floor(Math.random() * 490), Math.floor(Math.random() * 490));
 
-      $('#stage').append(player.$el);
-      player.$el.css('left', player.getX());
-      player.$el.css('top', player.getY());
-
+      
+      document.getElementById('svgstage').appendChild(player.$el);
+      player.$el.setAttribute('transform', 'translate('+player.getX()+' '+player.getY()+')');
+      
       socket.emit("new player", {
         x: player.getX(),
         y: player.getY()
@@ -41,10 +50,9 @@
       newPlayer.id = data.id;
       remotePlayers.push(newPlayer);
 
-      $('#stage').append(newPlayer.$el);
-      newPlayer.$el.css('left', newPlayer.getX());
-      newPlayer.$el.css('top', newPlayer.getY());
-
+      document.getElementById('svgstage').appendChild(newPlayer.$el);
+      newPlayer.$el.setAttribute('transform', 'translate('+newPlayer.getX()+' '+newPlayer.getY()+')');
+      
     }
 
     function onMovePlayer(data) {
@@ -56,9 +64,8 @@
       foo.setX(data.x);
       foo.setY(data.y);
 
-      foo.$el.css('left', foo.getX());
-      foo.$el.css('top', foo.getY());
-
+      foo.$el.setAttribute('transform', 'translate('+foo.getX()+' '+foo.getY()+')');
+      
     }
 
     function onRemovePlayer(data) {
@@ -67,7 +74,8 @@
         return item.id === data.id;
       }, remotePlayers);
 
-      foo.$el.remove();
+      document.getElementById('svgstage').removeChild(foo.$el);
+      // foo.$el.remove();
 
       remotePlayers = R.filter(function(item) {
         return item.id === data.id;
@@ -141,16 +149,20 @@
 
     console.log(this);
 
+    var rot = 0;
+
     function step() {
       if (player) {
         if (player.update(keys)) {
-          $('#stage').append(player.$el);
-          player.$el.css('left', player.getX());
-          player.$el.css('top', player.getY());
+
+          player.$el.setAttribute('transform', 'translate (' + player.getX() + ', ' + player.getY() + ') rotate(' + rot + ')');
+
           socket.emit('move player', {
             x: player.getX(),
             y: player.getY()
           });
+
+          rot++;
         }
       }
       //window.requestAnimationFrame(step);

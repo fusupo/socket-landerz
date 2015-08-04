@@ -1,17 +1,33 @@
+function makeSVG(tag, attrs) {
+  var el = document.createElementNS('http://www.w3.org/2000/svg', tag);
+  for (var k in attrs)
+    el.setAttribute(k, attrs[k]);
+  return el;
+}
+
+
 /**************************************************
  ** GAME PLAYER CLASS
  **************************************************/
-var Player = function(type, startX, startY) {
+var Player = function(type, startX, startY, startR) {
 
   var x = startX;
   var y = startY;
+  var r = startR;
   var id;
   var moveAmount = 2;
   var type = type;
-  var $el = $('<div></div>');
-  $el.addClass('player');
-  $el.addClass(type);
-  
+
+  var $el = makeSVG('rect', {
+    x: -5,
+    y: -5,
+    width: 10,
+    height: 10,
+    stroke: 'black',
+    'stroke-width': 2,
+    fill: 'red'
+  });
+
   // Getters and setters
   var getX = function() {
     return x;
@@ -65,7 +81,7 @@ var Player = function(type, startX, startY) {
     setY: setY,
     update: update,
     $el: $el
-    //draw: draw
+      //draw: draw
   };
-  
+
 };
