@@ -23,24 +23,18 @@ function onSocketConnection(client) {
   client.on("new player", onNewPlayer);
   client.on("move player", game.onMovePlayer);
 
-  // console.log('a user connected', socket.id);
-
-  // socket.send(socket.id);
-
-  // socket.on('chat message', function(msg) {
-  //   console.log('message: ', arguments);
-  //   io.emit('chat message', msg);
-  // });
-
-  // socket.on('disconnect', function() {
-  //   console.log('user disconnected');
-  // });
-
 }
 
 function onClientDisconnect() {
+
   util.log("Player has disconnected: " + this.id);
+
+  this.broadcast.emit("client disconnect", {
+    id: this.id
+  });
+  
   game.removePlayer(this.id);
+
 }
 
 function onNewPlayer(data) {
