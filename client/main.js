@@ -65,8 +65,9 @@
 
       foo.setX(data.x);
       foo.setY(data.y);
+      foo.setR(data.r);
 
-      foo.$el.setAttribute('transform', 'translate('+foo.getX()+' '+foo.getY()+')');
+      foo.$el.setAttribute('transform', 'translate('+foo.getX()+' '+foo.getY()+') rotate('+ foo.getR() +')');
       
     }
 
@@ -161,7 +162,8 @@
 
           socket.emit('move player', {
             x: player.getX(),
-            y: player.getY()
+            y: player.getY(),
+            r: player.getR()
           });
 
           rot++;
