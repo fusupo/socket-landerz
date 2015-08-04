@@ -26,7 +26,7 @@ var Player = function(startX, startY) {
     setY: setY,
     id: id
   };
-  
+
 };
 
 exports.Player = Player;
