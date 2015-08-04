@@ -32,7 +32,7 @@ function onClientDisconnect() {
   this.broadcast.emit("client disconnect", {
     id: this.id
   });
-  
+
   game.removePlayer(this.id);
 
 }
@@ -60,9 +60,9 @@ function onNewPlayer(data) {
   }
 
   game.addPlayer(newPlayer);
-  
+
 }
 
 function onMovePlayer(data) {
-  
+
 }

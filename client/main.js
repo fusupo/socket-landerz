@@ -22,6 +22,7 @@ var myID;
 ////////////////
 
 socket.on("connect", onSocketConnected);
+socket.on("client disconnect", onClientDisconnect);
 socket.on("disconnect", onSocketDisconnect);
 socket.on("new player", onNewPlayer);
 socket.on("move player", onMovePlayer);
@@ -38,6 +39,13 @@ function onSocketConnected() {
 function onSocketDisconnect() {
   console.log("Disconnected from socket server");
 }
+
+
+// other client has disconnected
+function onClientDisconnect(data){
+  console.log("Other player has disconnected: " + data.id);
+}
+
 
 function onNewPlayer(data) {
   console.log("New player connected: " + data.id);

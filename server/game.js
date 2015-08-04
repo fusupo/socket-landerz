@@ -1,5 +1,6 @@
 var Player = require("./player").Player;
 var R = require('ramda');
+var util = require('util');
 
 module.exports = function() {
   var players = [];
@@ -20,8 +21,8 @@ module.exports = function() {
       return p.id !== playerId;
     },players);
     
-    console.log('REMOVE PLAYER', playerId);
-    console.log(players);
+    util.log('REMOVE PLAYER', playerId);
+    util.log(players);
   };
 
   obj.onNewPlayer = function(data) {
