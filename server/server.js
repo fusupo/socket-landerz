@@ -40,6 +40,7 @@ function onSocketConnection(client) {
 
 function onClientDisconnect() {
   util.log("Player has disconnected: " + this.id);
+  game.removePlayer(this.id);
 }
 
 function onNewPlayer(data) {

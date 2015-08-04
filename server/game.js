@@ -1,4 +1,5 @@
-Player = require("./player").Player;
+var Player = require("./player").Player;
+var R = require('ramda');
 
 module.exports = function() {
   var players = [];
@@ -13,9 +14,15 @@ module.exports = function() {
     players.push(player);
   };
   
-  // obj.removeClient = function(clientID) {
-  //   delete gameState.clients[clientID];
-  // };
+  obj.removePlayer = function(playerId) {
+
+    players = R.filter(function(p){
+      return p.id !== playerId;
+    },players);
+    
+    console.log('REMOVE PLAYER', playerId);
+    console.log(players);
+  };
 
   obj.onNewPlayer = function(data) {
     
