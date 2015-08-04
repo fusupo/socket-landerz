@@ -21,13 +21,13 @@ module.exports = function() {
       return p.id !== playerId;
     },players);
     
-    util.log('REMOVE PLAYER', playerId);
-    util.log(players);
+    //util.log('REMOVE PLAYER', playerId);
+    //util.log(players);
   };
 
   obj.onNewPlayer = function(data) {
     
-    var newPlayer = new Player(data.x, data.y);
+    var newPlayer = new Player(data.x, data.y, data.r);
     newPlayer.id = this.id;
 
     return newPlayer;

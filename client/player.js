@@ -59,13 +59,24 @@ var Player = function(type, startX, startY, startR) {
     var prevX = x;
     var prevY = y;
     var prevR = r;
-    
+
+    var h;
     // Up key takes priority over down
-    // if (keys.up) {
-    //   y -= moveAmount;
-    // } else if (keys.down) {
-    //   y += moveAmount;
-    //}
+    if (keys.up) {
+      //y -= moveAmount;
+      h = moveAmount;
+    } else if (keys.down) {
+      //y += moveAmount;
+      h = -moveAmount;
+    }
+
+    if (h !== undefined) {
+      var rr = (Math.PI / 180) * r;
+      var a = h * Math.cos(rr);
+      var b = h * Math.sin(rr);
+      x += a;
+      y += b;
+    }
 
     // Left key takes priority over right
     if (keys.left) {

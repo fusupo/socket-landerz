@@ -44,7 +44,8 @@ function onNewPlayer(data) {
   this.broadcast.emit("new player", {
     id: newPlayer.id,
     x: newPlayer.getX(),
-    y: newPlayer.getY()
+    y: newPlayer.getY(),
+    r: newPlayer.getR()
   });
 
   var i, existingPlayer;
@@ -55,7 +56,8 @@ function onNewPlayer(data) {
     this.emit("new player", {
       id: existingPlayer.id,
       x: existingPlayer.getX(),
-      y: existingPlayer.getY()
+      y: existingPlayer.getY(),
+      r: existingPlayer.getR()
     });
   }
 

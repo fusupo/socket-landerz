@@ -17,27 +17,28 @@
     /////////////////////////
 
 
-    function makeSVG(tag, attrs) {
-      var el = document.createElementNS('http://www.w3.org/2000/svg', tag);
-      for (var k in attrs)
-        el.setAttribute(k, attrs[k]);
-      return el;
-    }
+    // function makeSVG(tag, attrs) {
+    //   var el = document.createElementNS('http://www.w3.org/2000/svg', tag);
+    //   for (var k in attrs)
+    //     el.setAttribute(k, attrs[k]);
+    //   return el;
+    // }
 
     /////////////////////////
     function onSocketConnected() {
 
       player = new Player('local',
-                          Math.floor(Math.random() * 490),
-                          Math.floor(Math.random() * 490),
-                          Math.floor(Math.random() * 360));
-      
+        Math.floor(Math.random() * 490),
+        Math.floor(Math.random() * 490),
+        Math.floor(Math.random() * 360));
+
       document.getElementById('svgstage').appendChild(player.$el);
-      player.$el.setAttribute('transform', 'translate('+player.getX()+' '+player.getY()+')');
-      
+      player.$el.setAttribute('transform', 'translate(' + player.getX() + ' ' + player.getY() + ') rotate(' + player.getR() + ')');
+
       socket.emit("new player", {
         x: player.getX(),
-        y: player.getY()
+        y: player.getY(),
+        r: player.getR()
       });
       console.log("Connected to socket server");
     }
@@ -47,14 +48,14 @@
     }
 
     function onNewPlayer(data) {
-      console.log("New player connected: " + data.id);
-      var newPlayer = new Player('remote', data.x, data.y);
+      console.log("New player connected: ", data);
+      var newPlayer = new Player('remote', data.x, data.y, data.r);
       newPlayer.id = data.id;
       remotePlayers.push(newPlayer);
 
       document.getElementById('svgstage').appendChild(newPlayer.$el);
-      newPlayer.$el.setAttribute('transform', 'translate('+newPlayer.getX()+' '+newPlayer.getY()+')');
-      
+      newPlayer.$el.setAttribute('transform', 'translate(' + newPlayer.getX() + ' ' + newPlayer.getY() + ') rotate(' + newPlayer.getR() + ')');
+
     }
 
     function onMovePlayer(data) {
@@ -67,8 +68,8 @@
       foo.setY(data.y);
       foo.setR(data.r);
 
-      foo.$el.setAttribute('transform', 'translate('+foo.getX()+' '+foo.getY()+') rotate('+ foo.getR() +')');
-      
+      foo.$el.setAttribute('transform', 'translate(' + foo.getX() + ' ' + foo.getY() + ') rotate(' + foo.getR() + ')');
+
     }
 
     function onRemovePlayer(data) {
