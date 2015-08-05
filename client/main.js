@@ -195,17 +195,17 @@
     function shoot() {
       //if (isShooting) {
 
-        //console.log(player);
+      //console.log(player);
 
-        socket.emit('shots fired', {
-          x: player.getX(),
-          y: player.getY(),
-          r: player.getR()
-        });
+      socket.emit('shots fired', {
+        x: player.getX(),
+        y: player.getY(),
+        r: player.getR()
+      });
 
-        //console.log('shoot');
-        //if (isShooting) setTimeout(shoot, 250);
-     // }
+      //console.log('shoot');
+      //if (isShooting) setTimeout(shoot, 250);
+      // }
     }
 
     function stopShooting() {
@@ -224,16 +224,28 @@
 
       document.getElementById('svgstage').appendChild(newBullet.$el);
       newBullet.$el.setAttribute('transform', 'translate(' + newBullet.getX() + ' ' + newBullet.getY() + ')');
-      
+
     }
 
-    function onUpdateShots() {}
+    function onUpdateShots(data) {
+
+      R.forEach(function(item) {
+        //console.log(item);
+        var foo = R.find(function(i) {
+          return i.id === item.id;
+        }, bullets);
+        foo.setX(item.x);
+        foo.setY(item.y);
+        foo.$el.setAttribute('transform', 'translate(' + foo.getX() + ' ' + foo.getY() + ') rotate(' + foo.getR() + ')');
+      }, data);
+      
+    }
 
     function onRemoveShot(data) {
       var foo = R.find(function(item) {
         return item.id === data.id;
       }, bullets);
-      
+
       document.getElementById('svgstage').removeChild(foo.$el);
       // foo.$el.remove();
 

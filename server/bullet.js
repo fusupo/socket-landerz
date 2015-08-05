@@ -1,11 +1,17 @@
 var Bullet = function(startX, startY, startR) {
   var x = startX,
-      y = startY,
-      r = startR,
-      id,
-      src,
-      age = 0;
-  
+    y = startY,
+    r = startR,
+    id,
+    src,
+    age = 0;
+
+  var h = 5;
+
+  var rr = (Math.PI / 180) * r;
+  var a = h * Math.cos(rr);
+  var b = h * Math.sin(rr);
+
   var getX = function() {
     return x;
   };
@@ -30,6 +36,12 @@ var Bullet = function(startX, startY, startR) {
     r = newR;
   };
 
+  var update = function() {
+   
+    x += a;
+    y += b;
+  };
+
   return {
     getX: getX,
     getY: getY,
@@ -39,7 +51,8 @@ var Bullet = function(startX, startY, startR) {
     setR: setR,
     src: src,
     id: id,
-    age: age
+    age: age,
+    update: update
   };
 
 };

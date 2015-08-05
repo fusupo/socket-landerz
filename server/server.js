@@ -99,18 +99,33 @@ function onShotsFired(data) {
 /////////////////////////
 
 function update() {
+  var maxAge = 50;
   var bullets = game.getBullets();
+
   R.forEach(function(item) {
     item.age++;
+    item.update();
   }, bullets);
 
   var old = R.reject(function(item) {
-    return item.age < 5;
+    return item.age < maxAge;
   }, bullets);
 
-  game.setBullets(R.filter(function(item) {
-    return item.age < 5;
-  }, bullets));
+  var xxx = R.filter(function(item) {
+    return item.age < maxAge;
+  }, bullets);
+
+  game.setBullets(xxx);
+
+  var data =  R.map(function(item) {
+      return {
+        id: item.id,
+        x: item.getX(),
+        y: item.getY(),
+        r: item.getR()
+      };
+  }, bullets);
+  io.emit('update shots',data);
 
   R.forEach(function(item) {
     io.emit('remove shot', {
@@ -122,4 +137,4 @@ function update() {
   }, old);
 
 }
-setInterval(update, 250);
+setInterval(update, 16);
