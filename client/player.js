@@ -22,7 +22,7 @@ var Player = function(type, startX, startY, startR) {
     height: 10,
     stroke: 'black',
     'stroke-width': 2,
-    fill: 'red'
+    fill: type === 'local' ? 'green' : 'red'
   });
 
   // Getters and setters
