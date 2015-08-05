@@ -12,23 +12,23 @@ module.exports = function() {
   obj.getGameState = function() {
     return gameState;
   };
-  
+
   obj.addPlayer = function(player) {
     players.push(player);
   };
-  
+
   obj.removePlayer = function(playerId) {
 
-    players = R.filter(function(p){
+    players = R.filter(function(p) {
       return p.id !== playerId;
-    },players);
-    
+    }, players);
+
     //util.log('REMOVE PLAYER', playerId);
     //util.log(players);
   };
 
   obj.onNewPlayer = function(data) {
-    
+
     var newPlayer = new Player(data.x, data.y, data.r);
     newPlayer.id = this.id;
 
@@ -39,27 +39,33 @@ module.exports = function() {
 
   };
 
-  obj.getPlayers = function(){
+  obj.getPlayers = function() {
     return players;
   };
 
   /////////////////////////
 
-  obj.onShotsFired = function(data){
+  obj.onShotsFired = function(data) {
 
     var newBullet = new Bullet(data.x, data.y, data.r);
-    newBullet.id = uuid.v1();
+    newBullet.id = uuid.v4();
     newBullet.src = this.id;
 
     return newBullet;
-    
+
   };
 
-  obj.addBullet = function(bullet){
+  obj.addBullet = function(bullet) {
     bullets.push(bullet);
   };
 
-  //setInterval(function(){console.log('interval')}, 1000);
-  
+  obj.getBullets = function() {
+    return bullets;
+  };
+
+  obj.setBullets = function(arr) {
+     bullets = arr;
+  };
+
   return obj;
 };

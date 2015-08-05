@@ -118,9 +118,10 @@
           break;
         case 88: // x
           keys['x'] = key;
-          if (!isShooting) {
-            startShooting();
-          };
+          // if (!isShooting) {
+          //   startShooting();
+          // };
+          shoot();
           break;
         default:
           return; // exit this handler for other keys
@@ -152,7 +153,7 @@
           break;
         case 88: // x
           delete['x'];
-          stopShooting();
+          //stopShooting();
           break;
         default:
           return; // exit this handler for other keys
@@ -192,9 +193,9 @@
     }
 
     function shoot() {
-      if (isShooting) {
+      //if (isShooting) {
 
-        console.log(player);
+        //console.log(player);
 
         socket.emit('shots fired', {
           x: player.getX(),
@@ -202,9 +203,9 @@
           r: player.getR()
         });
 
-        console.log('shoot');
-        setTimeout(shoot, 1000);
-      }
+        //console.log('shoot');
+        //if (isShooting) setTimeout(shoot, 250);
+     // }
     }
 
     function stopShooting() {
@@ -223,10 +224,22 @@
 
       document.getElementById('svgstage').appendChild(newBullet.$el);
       newBullet.$el.setAttribute('transform', 'translate(' + newBullet.getX() + ' ' + newBullet.getY() + ')');
+      
     }
 
     function onUpdateShots() {}
 
-    function onRemoveShot() {}
+    function onRemoveShot(data) {
+      var foo = R.find(function(item) {
+        return item.id === data.id;
+      }, bullets);
+      
+      document.getElementById('svgstage').removeChild(foo.$el);
+      // foo.$el.remove();
+
+      bullets = R.reject(function(item) {
+        return item.id === data.id;
+      }, bullets);
+    }
 
   });

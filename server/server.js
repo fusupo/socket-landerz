@@ -4,6 +4,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var game = require('./game')();
 var util = require('util');
+var R = require('ramda');
 
 var port = process.env.PORT || 3000;
 app.use(express.static(__dirname + '/../client'));
@@ -92,5 +93,33 @@ function onShotsFired(data) {
   });
 
   game.addBullet(newBullet);
-  
+
 }
+
+/////////////////////////
+
+function update() {
+  var bullets = game.getBullets();
+  R.forEach(function(item) {
+    item.age++;
+  }, bullets);
+
+  var old = R.reject(function(item) {
+    return item.age < 5;
+  }, bullets);
+
+  game.setBullets(R.filter(function(item) {
+    return item.age < 5;
+  }, bullets));
+
+  R.forEach(function(item) {
+    io.emit('remove shot', {
+      id: item.id,
+      x: item.getX(),
+      y: item.getY(),
+      r: item.getR()
+    });
+  }, old);
+
+}
+setInterval(update, 250);

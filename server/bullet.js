@@ -4,7 +4,7 @@ var Bullet = function(startX, startY, startR) {
       r = startR,
       id,
       src,
-      age;
+      age = 0;
   
   var getX = function() {
     return x;
@@ -38,7 +38,8 @@ var Bullet = function(startX, startY, startR) {
     setY: setY,
     setR: setR,
     src: src,
-    id: id
+    id: id,
+    age: age
   };
 
 };
