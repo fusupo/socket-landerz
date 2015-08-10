@@ -7,6 +7,7 @@
     var myID;
     var keys = {};
 
+
     /////////////////////////
 
     socket.on("connect", onSocketConnected);
@@ -121,7 +122,7 @@
           // if (!isShooting) {
           //   startShooting();
           // };
-          shoot();
+            //shoot();
           break;
         default:
           return; // exit this handler for other keys
@@ -161,6 +162,10 @@
       e.preventDefault();
     });
 
+    Object.observe(keys, function(changes) {
+      socket.emit('key:'+changes[0].type, changes[0].name);
+    });
+    
     var rot = 0;
 
     function step() {

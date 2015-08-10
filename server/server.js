@@ -25,6 +25,8 @@ function onSocketConnection(client) {
   client.on("move player", onMovePlayer);
 
   client.on("shots fired", onShotsFired);
+  client.on("key:add", onKeyAdded);
+  client.on("key:delete", onKeyDeleted);
 
 }
 
@@ -96,6 +98,13 @@ function onShotsFired(data) {
 
 }
 
+function onKeyAdded(data){
+  console.log(data);
+}
+
+function onKeyDeleted(data){
+  console.log(data);
+}
 /////////////////////////
 
 function update() {
