@@ -1,3 +1,5 @@
+"use strict";
+
 var express = require('express');
 var app = require('express')();
 var http = require('http').Server(app);
@@ -15,11 +17,10 @@ http.listen(port, function() {
   util.log('listening on *:' + port);
 });
 
-//util.log(game);
-
 function onSocketConnection(client) {
 
   util.log("New player has connected: " + client.id);
+
   client.on("disconnect", onClientDisconnect);
   client.on("new player", onNewPlayer);
   client.on("move player", onMovePlayer);
@@ -44,7 +45,10 @@ function onClientDisconnect() {
 
 function onNewPlayer(data) {
 
-  var newPlayer = game.onNewPlayer.bind(this)(data);
+  var i,
+      existingPlayer,
+      players = game.getPlayers(),
+      newPlayer = game.onNewPlayer.bind(this)(data);
 
   this.broadcast.emit("new player", {
     id: newPlayer.id,
@@ -52,9 +56,6 @@ function onNewPlayer(data) {
     y: newPlayer.getY(),
     r: newPlayer.getR()
   });
-
-  var i, existingPlayer;
-  var players = game.getPlayers();
 
   for (i = 0; i < players.length; i++) {
     existingPlayer = players[i];
@@ -98,52 +99,56 @@ function onShotsFired(data) {
 
 }
 
-function onKeyAdded(data){
-  console.log(data);
+function onKeyAdded(data) {
+  game.addKey(this.id, data);
 }
 
-function onKeyDeleted(data){
-  console.log(data);
+function onKeyDeleted(data) {
+  game.deleteKey(this.id, data);
 }
+
 /////////////////////////
 
 function update() {
-  var maxAge = 50;
-  var bullets = game.getBullets();
+  // var maxAge = 50;
+  // var bullets = game.getBullets();
 
-  R.forEach(function(item) {
-    item.age++;
-    item.update();
-  }, bullets);
+  // R.forEach(function(item) {
+  //   item.age++;
+  //   item.update();
+  // }, bullets);
 
-  var old = R.reject(function(item) {
-    return item.age < maxAge;
-  }, bullets);
+  // var old = R.reject(function(item) {
+  //   return item.age < maxAge;
+  // }, bullets);
 
-  var xxx = R.filter(function(item) {
-    return item.age < maxAge;
-  }, bullets);
+  // var xxx = R.filter(function(item) {
+  //   return item.age < maxAge;
+  // }, bullets);
 
-  game.setBullets(xxx);
+  // game.setBullets(xxx);
 
-  var data =  R.map(function(item) {
-      return {
-        id: item.id,
-        x: item.getX(),
-        y: item.getY(),
-        r: item.getR()
-      };
-  }, bullets);
-  io.emit('update shots',data);
+  // var data = R.map(function(item) {
+  //   return {
+  //     id: item.id,
+  //     x: item.getX(),
+  //     y: item.getY(),
+  //     r: item.getR()
+  //   };
+  // }, bullets);
+  // io.emit('update shots', data);
 
-  R.forEach(function(item) {
-    io.emit('remove shot', {
-      id: item.id,
-      x: item.getX(),
-      y: item.getY(),
-      r: item.getR()
-    });
-  }, old);
+  // R.forEach(function(item) {
+  //   io.emit('remove shot', {
+  //     id: item.id,
+  //     x: item.getX(),
+  //     y: item.getY(),
+  //     r: item.getR()
+  //   });
+  // }, old);
 
+  game.update();
+  io.emit('update', game.getGameState());
 }
+
 setInterval(update, 16);
